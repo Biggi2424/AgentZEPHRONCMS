@@ -110,7 +110,7 @@ export function Shell({ children }: { children: ReactNode }) {
           </div>
         </header>
         <main className="flex-1 bg-gradient-to-b from-zinc-950 via-zinc-950 to-black px-4 py-6">
-          <div className="mx-auto max-w-6xl">{children}</div>
+          <div className="mx-auto w-full max-w-none">{children}</div>
         </main>
       </div>
     </div>

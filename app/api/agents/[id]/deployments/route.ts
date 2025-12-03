@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 interface RouteContext {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export async function GET(_request: Request, context: RouteContext) {
-  const { id } = context.params;
+export async function GET(_request: NextRequest, context: RouteContext) {
+  const { id } = await context.params;
 
   const deployments = [
     {

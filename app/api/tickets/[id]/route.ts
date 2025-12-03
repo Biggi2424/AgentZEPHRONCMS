@@ -3,13 +3,13 @@ import { getDb } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 
 interface RouteContext {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export async function GET(_request: NextRequest, context: RouteContext) {
   const db = getDb();
   const user = await getCurrentUser();
-  const { id } = context.params;
+  const { id } = await context.params;
 
   const ticket = await db.ticket.findFirst({
     where: { id, tenantId: user.tenantId },
@@ -25,7 +25,7 @@ export async function GET(_request: NextRequest, context: RouteContext) {
 export async function PATCH(request: NextRequest, context: RouteContext) {
   const db = getDb();
   const user = await getCurrentUser();
-  const { id } = context.params;
+  const { id } = await context.params;
   const body = await request.json();
 
   const ticket = await db.ticket.updateMany({

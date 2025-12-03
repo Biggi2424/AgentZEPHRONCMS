@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getDb } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 type TenantType = "company" | "user";
 
 type PageProps = {

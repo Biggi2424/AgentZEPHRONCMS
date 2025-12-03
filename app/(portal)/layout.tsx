@@ -1,6 +1,10 @@
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { Shell } from "@/components/layout/Shell";
 
 export default function PortalLayout({ children }: { children: ReactNode }) {
-  return <Shell>{children}</Shell>;
+  return (
+    <Suspense fallback={null}>
+      <Shell>{children}</Shell>
+    </Suspense>
+  );
 }

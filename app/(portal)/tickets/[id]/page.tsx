@@ -2,8 +2,10 @@ import { notFound } from "next/navigation";
 import { getDb } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 interface TicketDetailPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function TicketDetailPage({
@@ -11,9 +13,10 @@ export default async function TicketDetailPage({
 }: TicketDetailPageProps) {
   const db = getDb();
   const user = await getCurrentUser();
+  const { id } = await params;
 
   const ticket = await db.ticket.findFirst({
-    where: { id: params.id, tenantId: user.tenantId },
+    where: { id, tenantId: user.tenantId },
   });
 
   if (!ticket) {
