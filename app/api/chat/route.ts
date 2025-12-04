@@ -14,8 +14,8 @@ export async function POST(request: NextRequest) {
 
   const reply =
     userText.trim().length > 0
-      ? `Du fragst: "${userText}". Ich bin Zephron, dein Control Room fuer die digitale Welt - alles, was du an einem Computer tun koenntest, kann ich fuer dich orchestrieren.`
-      : "Ich bin Zephron - stell mir eine Frage oder gib mir eine Aufgabe, und ich bewege deine digitale Welt.";
+      ? `Du fragst: "${userText}". Ich bin Neyraq, dein Control Room fuer die digitale Welt - alles, was du an einem Computer tun koenntest, kann ich fuer dich orchestrieren.`
+      : "Ich bin Neyraq - stell mir eine Frage oder gib mir eine Aufgabe, und ich bewege deine digitale Welt.";
 
   return NextResponse.json({ reply });
 }

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zephron Cloud - Control Room",
+  title: "Neyraq Cloud - Control Room",
   description:
     "Mandantenfaehiges Control-Portal fuer Tickets, Softwareverteilung, Service Store und Agents.",
 };

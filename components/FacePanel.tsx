@@ -49,7 +49,7 @@ function FaceMesh({ talking }: FaceMeshProps) {
   useEffect(() => {
     const loader = new THREE.TextureLoader();
     loader.load(
-      "/textures/zephron-face-heightmap.png",
+      "/textures/neyraq-face-heightmap.png",
       (loaded) => {
         loaded.wrapS = THREE.ClampToEdgeWrapping;
         loaded.wrapT = THREE.ClampToEdgeWrapping;

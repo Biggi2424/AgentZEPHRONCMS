@@ -70,7 +70,7 @@ export function ChatUI({ onTalkingStart, onTalkingStop }: ChatUIProps) {
       <div className="pointer-events-none max-h-40 overflow-y-auto rounded-2xl border border-zinc-800/80 bg-black/60 p-3 text-xs text-zinc-300 backdrop-blur">
         {messages.length === 0 ? (
           <p className="text-zinc-500">
-            Zephron hoert zu … stell eine Frage, z. B.{" "}
+            Neyraq hoert zu . stell eine Frage, z. B.{" "}
             <span className="text-zinc-300">
               &bdquo;Was bist du?&ldquo;
             </span>
@@ -86,7 +86,7 @@ export function ChatUI({ onTalkingStart, onTalkingStop }: ChatUIProps) {
                   : "text-emerald-300/90"
               }
             >
-              {message.role === "user" ? "Du: " : "Zephron: "}
+              {message.role === "user" ? "Du: " : "Neyraq: "}
               {message.content}
             </p>
           ))
@@ -97,7 +97,7 @@ export function ChatUI({ onTalkingStart, onTalkingStop }: ChatUIProps) {
         className="flex items-center gap-3 rounded-full border border-zinc-700/80 bg-black/70 px-3 py-2 text-sm text-zinc-200 backdrop-blur"
       >
         <span className="hidden text-xs text-zinc-500 sm:inline">
-          Zephron hoert zu …
+          Neyraq hoert zu .
         </span>
         <input
           className="flex-1 bg-transparent text-xs text-zinc-100 outline-none placeholder:text-zinc-600 sm:text-sm"

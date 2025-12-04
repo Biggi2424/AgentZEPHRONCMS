@@ -21,7 +21,7 @@ export interface Agent {
   deviceName: string;
   userName: string;
   osVersion: string;
-  zephronVersion: string;
+  neyraqVersion: string;
   onlineStatus: "online" | "offline";
   lastSeenAt: string;
   tags: string[];

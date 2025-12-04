@@ -1,38 +1,35 @@
-type TenantType = "company" | "user";
-
-type PageProps = {
-  searchParams?: { tenantType?: string };
-};
+import { getCurrentUser } from "@/lib/auth";
 
 const companyRows = [
   { name: "Office 365", version: "24.9", rollout: "Ring 1/3", status: "Deploying" },
-  { name: "Defender ATP", version: "5.1", rollout: "Alle Agents", status: "Active" },
+  { name: "Defender ATP", version: "5.1", rollout: "All agents", status: "Active" },
   { name: "Chrome", version: "130.0", rollout: "Pilot", status: "Pending" },
 ];
 
-const userRows = [
-  { name: "Office 365", version: "24.9", rollout: "installiert", status: "Up to date" },
-  { name: "Zoom", version: "6.0", rollout: "installiert", status: "Update verfuegbar" },
-  { name: "VS Code", version: "1.94", rollout: "installiert", status: "Up to date" },
-];
+export default async function SoftwarePage() {
+  const session = await getCurrentUser();
+  const tenantType = session.tenantType;
 
-export default function SoftwarePage({ searchParams }: PageProps) {
-  const tenantType: TenantType =
-    searchParams?.tenantType === "user" ? "user" : "company";
-  const viewLabel = tenantType === "company" ? "Company" : "User";
-  const rows = tenantType === "company" ? companyRows : userRows;
+  if (tenantType !== "company") {
+    return (
+      <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6 text-sm text-zinc-300">
+        Softwareverteilung ist nur für Company-Admins sichtbar.
+      </div>
+    );
+  }
+
+  const viewLabel = "Company";
+  const rows = companyRows;
 
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-zinc-50">
-            Softwareverteilung ({viewLabel} Ansicht)
+            Software distribution ({viewLabel} view)
           </h1>
           <p className="text-sm text-zinc-400">
-            {tenantType === "company"
-              ? "Pakete, Deployments und Device Groups fuer den gesamten Tenant."
-              : "Self-Service Apps und installierter Stand nur fuer deinen Account."}
+            Packages, deployments, and device groups for the whole tenant.
           </p>
         </div>
         <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">

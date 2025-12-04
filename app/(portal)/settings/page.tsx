@@ -1,26 +1,22 @@
-type TenantType = "company" | "user";
+import { getCurrentUser } from "@/lib/auth";
 
-type PageProps = {
-  searchParams?: { tenantType?: string };
-};
-
-export default function SettingsPage({ searchParams }: PageProps) {
-  const tenantType: TenantType =
-    searchParams?.tenantType === "user" ? "user" : "company";
+export default async function SettingsPage() {
+  const session = await getCurrentUser();
+  const tenantType = session.tenantType;
   const viewLabel = tenantType === "company" ? "Company" : "User";
 
   const companySettings = [
-    "Branding (Logo, Farben) fuer alle Nutzer",
-    "Rollen und Berechtigungen verwalten",
-    "Integrationen (SSO, Ticketing, CMDB)",
-    "Rechnungsadresse und Abrechnung",
+    "Branding (logo, colors) for all users",
+    "Manage roles and permissions",
+    "Integrations (SSO, ticketing, CMDB)",
+    "Billing address and invoicing",
   ];
 
   const userSettings = [
-    "Profil (Name, Kontakt) und Benachrichtigungen",
-    "Passwort / SSO-Bindung",
-    "Geraete-Verknuepfungen",
-    "Self-Service Defaults",
+    "Profile (name, contact) and notifications",
+    "Password / SSO binding",
+    "Device links",
+    "Self-service defaults",
   ];
 
   const items = tenantType === "company" ? companySettings : userSettings;
@@ -30,12 +26,12 @@ export default function SettingsPage({ searchParams }: PageProps) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-zinc-50">
-            Einstellungen ({viewLabel} Ansicht)
+            Settings ({viewLabel} view)
           </h1>
           <p className="text-sm text-zinc-400">
             {tenantType === "company"
-              ? "Tenant-Einstellungen, Branding und Rollenverwaltung."
-              : "Persoenliche Einstellungen fuer deinen Account."}
+              ? "Tenant settings, branding, and role management."
+              : "Personal settings for your account."}
           </p>
         </div>
         <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">
@@ -45,9 +41,9 @@ export default function SettingsPage({ searchParams }: PageProps) {
 
       <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
         <p className="text-xs text-zinc-400">
-          {tenantType === "company" ? "Tenant-weit" : "Nur fuer dich"}
+          {tenantType === "company" ? "Tenant-wide" : "Only for you"}
         </p>
-        <p className="text-lg font-semibold text-zinc-50">Konfigurationsbereiche</p>
+        <p className="text-lg font-semibold text-zinc-50">Configuration areas</p>
         <ul className="mt-3 grid gap-2 md:grid-cols-2">
           {items.map((item) => (
             <li

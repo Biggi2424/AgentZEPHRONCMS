@@ -1,10 +1,84 @@
 import type React from "react";
+import type { PlanType, SessionUser } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth";
+import type { UserHomeData } from "@/components/user/UserHome";
+import { UserHome } from "@/components/user/UserHome";
 
-type TenantType = "company" | "user";
+export default async function DashboardPage() {
+  const session = await getCurrentUser();
 
-type PageProps = {
-  searchParams?: { tenantType?: string };
-};
+  if (session.tenantType === "user") {
+    const data = buildUserHomeData(session);
+    return <UserHome data={data} />;
+  }
+
+  return <CompanyDashboard />;
+}
+
+function buildUserHomeData(session: SessionUser): UserHomeData {
+  return {
+    greetingName: session.displayName,
+    agent: { status: "running", version: "1.4.2", lastSeenAt: new Date().toISOString() },
+    plan: session.plan,
+    trialExpiresAt: session.trialExpiresAt,
+    tokens: {
+      used: session.tokensUsedPeriod,
+      quota: session.tokensQuotaPeriod,
+      throttleState: session.throttleState,
+      hardBlockAt: session.tokensQuotaPeriod * 1.2,
+    },
+    activity: [
+      { time: "08:34", title: "Opened Edge" },
+      { time: "08:36", title: "Moved PDF to Projects folder" },
+      { time: "08:40", title: "Ran diagnostics for Word" },
+      { time: "08:47", title: "Restarted Teams (silent)" },
+    ],
+    quickActions: [
+      { id: "open-browser", label: "Browser öffnen", description: "Edge oder Standardbrowser starten" },
+      { id: "show-downloads", label: "Downloads anzeigen", description: "Ordner Downloads öffnen" },
+      { id: "check-mail", label: "E-Mails checken", description: "Outlook öffnen und Sync prüfen" },
+      { id: "start-teams", label: "Teams starten", description: "Teams mit Autologin öffnen" },
+      { id: "system-health", label: "Systemstatus prüfen", description: "CPU/RAM/Disk schnelle Analyse" },
+      { id: "collect-logs", label: "Logs sammeln", description: "Eventlogs + App-Logs bündeln" },
+    ],
+    suggestions: [
+      { title: "Sort downloads by voice", prompt: "Sort my Downloads folder by file type." },
+      { title: "Repair Teams", prompt: "Repair Teams and clear its cache." },
+      { title: "Backup check", prompt: "Verify last backups completed cleanly." },
+    ],
+    productScore: 72,
+    badges: ["Automation beginner", "Trial active"],
+    security: {
+      status: "ok",
+      items: ["Startup reviewed", "Disk space OK", "No critical events"],
+    },
+    trust: {
+      strictMode: true,
+      sensitiveSkills: ["File delete", "Registry changes", "Remote commands without prompt"],
+    },
+  };
+}
+
+function Badge({
+  tone,
+  children,
+}: {
+  tone: "emerald" | "amber" | "cyan" | "violet" | "blue";
+  children: React.ReactNode;
+}) {
+  const toneMap: Record<string, string> = {
+    emerald: "bg-emerald-500/10 text-emerald-300",
+    amber: "bg-amber-500/10 text-amber-300",
+    cyan: "bg-cyan-500/10 text-cyan-300",
+    violet: "bg-violet-500/10 text-violet-300",
+    blue: "bg-blue-500/10 text-blue-300",
+  };
+  return (
+    <span className={`rounded-full px-2 py-1 text-[11px] font-semibold ${toneMap[tone]}`}>
+      {children}
+    </span>
+  );
+}
 
 const companyData = {
   tenant: {
@@ -15,8 +89,8 @@ const companyData = {
     regions: ["DE-Frankfurt", "AT-Vienna", "CH-Zurich"],
   },
   leadership: {
-    owner: "Zephron Admin",
-    email: "zephron.admin@vdma.example",
+    owner: "Neyraq Admin",
+    email: "neyraq.admin@vdma.example",
     roles: ["Owner", "Admin"],
     controls: ["Abrechnung", "Rollen & Policies", "Integrationen"],
   },
@@ -72,65 +146,6 @@ const companyData = {
   ],
 };
 
-const userData = {
-  profile: {
-    name: "Max Mustermann",
-    email: "max.private@example.com",
-    role: "Einzel-User",
-    devices: 4,
-    tickets: 2,
-  },
-  kpis: [
-    { label: "Meine Tickets", value: "2", tone: "amber" },
-    { label: "Geraete online", value: "2", tone: "emerald" },
-    { label: "Self-Service", value: "1 aktiv", tone: "cyan" },
-    { label: "Backups", value: "Letzte 3 OK", tone: "violet" },
-  ],
-  devices: [
-    { name: "MAX-LAPTOP", os: "Windows 11", status: "online", health: "OK" },
-    { name: "MAX-HOME-PC", os: "Windows 10", status: "offline", health: "Needs Reboot" },
-    { name: "MAX-SURFACE", os: "Windows 11", status: "online", health: "OK" },
-  ],
-  tickets: [
-    { id: "T-1042", title: "VPN trennt nach 5 Minuten", status: "in_progress" },
-    { id: "T-1045", title: "Office Add-in Fehler", status: "waiting" },
-  ],
-  actions: [
-    "Self-Service: Teams Repair",
-    "Remote Assist anfragen",
-    "Gerat Neustart planen",
-    "Ticket eroeffnen",
-    "Log-Sammlung starten",
-  ],
-  activity: [
-    "Agent Check-in vor 12min",
-    "Windows Update KB5033375 installiert",
-    "Backup abgeschlossen heute 03:00",
-    "Ticket T-1042 aktualisiert (Support antwortet)",
-  ],
-};
-
-function Badge({
-  tone,
-  children,
-}: {
-  tone: "emerald" | "amber" | "cyan" | "violet" | "blue";
-  children: React.ReactNode;
-}) {
-  const toneMap: Record<string, string> = {
-    emerald: "bg-emerald-500/10 text-emerald-300",
-    amber: "bg-amber-500/10 text-amber-300",
-    cyan: "bg-cyan-500/10 text-cyan-300",
-    violet: "bg-violet-500/10 text-violet-300",
-    blue: "bg-blue-500/10 text-blue-300",
-  };
-  return (
-    <span className={`rounded-full px-2 py-1 text-[11px] font-semibold ${toneMap[tone]}`}>
-      {children}
-    </span>
-  );
-}
-
 function CompanyDashboard() {
   return (
     <div className="space-y-6">
@@ -140,7 +155,7 @@ function CompanyDashboard() {
             <p className="text-xs uppercase tracking-[0.2em] text-emerald-300">Company Command Center</p>
             <h1 className="mt-2 text-3xl font-semibold text-zinc-50">Tenant Uebersicht</h1>
             <p className="mt-2 max-w-4xl text-sm text-zinc-200">
-              Fullscreen-Ansicht fuer Unternehmens-Tenants: Operations, Security, Rollen und Roadmap in einem Blick.
+              Company-Sicht: Geräte, Tickets, Deployments und Security-Status.
             </p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs text-zinc-300">
               <Badge tone="emerald">Regions: {companyData.tenant.regions.join(" · ")}</Badge>
@@ -261,138 +276,4 @@ function CompanyDashboard() {
       </div>
     </div>
   );
-}
-
-function UserDashboard() {
-  return (
-    <div className="space-y-6">
-      <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-r from-emerald-500/10 via-amber-500/10 to-rose-500/10 p-6">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-emerald-300">User Cockpit</p>
-            <h1 className="mt-2 text-3xl font-semibold text-zinc-50">Meine Umgebung</h1>
-            <p className="mt-2 max-w-4xl text-sm text-zinc-200">
-              Klar getrennte User-Sicht: nur eigene Geraete, Tickets, Self-Service und Aktivitaeten.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-emerald-500/20 bg-black/30 px-4 py-3 text-sm text-zinc-200">
-            <p className="text-xs text-emerald-300">Profil</p>
-            <p className="font-semibold text-zinc-50">{userData.profile.name}</p>
-            <p className="text-xs text-zinc-400">{userData.profile.email}</p>
-            <div className="mt-2 flex flex-wrap gap-2 text-xs">
-              <span className="rounded-full bg-zinc-100 px-2 py-1 font-semibold text-zinc-900">
-                Rolle: {userData.profile.role}
-              </span>
-              <span className="rounded-full bg-zinc-900 px-2 py-1 text-zinc-200">
-                Geraete: {userData.profile.devices}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-4">
-        {userData.kpis.map((item) => (
-          <div key={item.label} className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
-            <div className="flex items-center justify-between text-xs text-zinc-400">
-              <span>{item.label}</span>
-              <Badge tone={(item.tone as any) ?? "emerald"}>User</Badge>
-            </div>
-            <p className="mt-2 text-2xl font-semibold text-zinc-50">{item.value}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-[1.6fr_1.1fr]">
-        <div className="space-y-4">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
-            <div className="flex items-center justify-between">
-              <p className="text-xs text-zinc-400">Meine Geraete</p>
-              <Badge tone="emerald">Health</Badge>
-            </div>
-            <div className="mt-3 grid gap-3 md:grid-cols-2">
-              {userData.devices.map((device) => (
-                <div key={device.name} className="rounded-xl border border-zinc-800 bg-black/40 p-3">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold text-zinc-50">{device.name}</p>
-                    <span
-                      className={`rounded-full px-2 py-1 text-[11px] font-semibold ${
-                        device.status === "online"
-                          ? "bg-emerald-500/10 text-emerald-300"
-                          : "bg-amber-500/10 text-amber-300"
-                      }`}
-                    >
-                      {device.status}
-                    </span>
-                  </div>
-                  <p className="text-xs text-zinc-400">{device.os}</p>
-                  <p className="mt-1 text-xs text-emerald-300">Health: {device.health}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
-            <div className="flex items-center justify-between">
-              <p className="text-xs text-zinc-400">Schnellaktionen</p>
-              <Badge tone="cyan">Self-Service</Badge>
-            </div>
-            <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {userData.actions.map((action) => (
-                <button
-                  key={action}
-                  type="button"
-                  className="rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-left text-sm text-zinc-200 hover:border-emerald-500/50 hover:bg-emerald-500/5"
-                >
-                  {action}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
-            <div className="flex items-center justify-between">
-              <p className="text-xs text-zinc-400">Meine Tickets</p>
-              <Badge tone="amber">{userData.tickets.length} offen</Badge>
-            </div>
-            <div className="mt-3 space-y-3">
-              {userData.tickets.map((ticket) => (
-                <div key={ticket.id} className="rounded-xl border border-zinc-800 bg-black/40 p-3">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold text-zinc-50">{ticket.title}</p>
-                    <span className="text-[11px] capitalize text-zinc-400">
-                      {ticket.status.replace("_", " ")}
-                    </span>
-                  </div>
-                  <p className="text-xs text-emerald-300">{ticket.id}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
-            <div className="flex items-center justify-between">
-              <p className="text-xs text-zinc-400">Aktivitaet</p>
-              <Badge tone="violet">Live</Badge>
-            </div>
-            <ul className="mt-3 space-y-2 text-xs text-zinc-200">
-              {userData.activity.map((item) => (
-                <li key={item} className="rounded-lg border border-zinc-800 bg-black/40 p-2">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default function DashboardPage({ searchParams }: PageProps) {
-  const tenantType: TenantType = searchParams?.tenantType === "user" ? "user" : "company";
-
-  return tenantType === "company" ? <CompanyDashboard /> : <UserDashboard />;
 }

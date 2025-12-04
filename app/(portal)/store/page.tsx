@@ -1,8 +1,4 @@
-type TenantType = "company" | "user";
-
-type PageProps = {
-  searchParams?: { tenantType?: string };
-};
+import { getCurrentUser } from "@/lib/auth";
 
 type StoreItem = {
   name: string;
@@ -11,33 +7,34 @@ type StoreItem = {
 };
 
 const items: StoreItem[] = [
-  { name: "VPN Client", desc: "Corporate VPN mit SSO und Always-On.", scope: "company" },
-  { name: "M365 Apps", desc: "Office, Teams, OneDrive - lizensiert ueber Tenant.", scope: "both" },
-  { name: "Remote Assist", desc: "Fernunterstuetzung durch Helpdesk.", scope: "both" },
-  { name: "Adobe Reader", desc: "PDF Viewer fuer alle Geraete.", scope: "both" },
-  { name: "Privat Backup", desc: "Backup fuer private Devices.", scope: "user" },
-  { name: "Line-of-Business App", desc: "Spezielle App fuer Fachabteilungen.", scope: "company" },
+  { name: "VPN Client", desc: "Corporate VPN with SSO and always-on.", scope: "company" },
+  { name: "M365 Apps", desc: "Office, Teams, OneDrive - tenant licensed.", scope: "both" },
+  { name: "Remote Assist", desc: "Helpdesk remote support.", scope: "both" },
+  { name: "Adobe Reader", desc: "PDF viewer for all devices.", scope: "both" },
+  { name: "Personal Backup", desc: "Backups for private devices.", scope: "user" },
+  { name: "Line-of-Business App", desc: "Specialized app for departments.", scope: "company" },
 ];
 
-export default function StorePage({ searchParams }: PageProps) {
-  const tenantType: TenantType =
-    searchParams?.tenantType === "user" ? "user" : "company";
+export default async function StorePage() {
+  const session = await getCurrentUser();
+  const tenantType = session.tenantType;
   const viewLabel = tenantType === "company" ? "Company" : "User";
-  const visibleItems = items.filter(
-    (item) => item.scope === "both" || item.scope === tenantType,
-  );
+  const visibleItems =
+    tenantType === "company"
+      ? items.filter((item) => item.scope === "both" || item.scope === "company")
+      : items.filter((item) => item.scope === "both" || item.scope === "user");
 
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-zinc-50">
-            Service Store ({viewLabel} Ansicht)
+            Service Store ({viewLabel} view)
           </h1>
           <p className="text-sm text-zinc-400">
             {tenantType === "company"
-              ? "Self-Service Katalog fuer alle Nutzer mit Abteilungs-Scopes."
-              : "Nur Angebote, die fuer dich freigegeben sind."}
+              ? "Self-service catalog with department scopes."
+              : "Only offers available to you."}
           </p>
         </div>
         <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">

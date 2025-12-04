@@ -23,9 +23,9 @@ export default function LandingPage() {
   const pageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.body.classList.add("zephron-landing-body");
+    document.body.classList.add("Neyraq-landing-body");
     return () => {
-      document.body.classList.remove("zephron-landing-body");
+      document.body.classList.remove("Neyraq-landing-body");
       document.body.classList.remove("hero-text-visible");
     };
   }, []);
@@ -43,11 +43,11 @@ export default function LandingPage() {
 
     logEl.innerHTML = "";
     const lines = [
-      "[BOOT] Starting Zephron...",
+      "[BOOT] Starting Neyraq...",
       "[BOOT] Preparing components...",
       "[BOOT] Checking settings...",
       "[BOOT] Loading interface...",
-      "[OK] Zephron is ready.",
+      "[OK] Neyraq is ready.",
     ];
 
     let index = 0;
@@ -145,24 +145,24 @@ export default function LandingPage() {
   return (
     <div
       ref={pageRef}
-      className={`zephron-landing ${inter.variable} ${playfair.variable}`}
+      className={`Neyraq-landing ${inter.variable} ${playfair.variable}`}
     >
       <div ref={bootloaderRef} className="bootloader">
         <div className="bootloader-logo">
           <div className="bootloader-logo-mark">
             <div className="bootloader-logo-dot" />
           </div>
-          <span>STARTING ZEPHRON</span>
+          <span>STARTING Neyraq</span>
         </div>
         <div ref={logRef} className="bootloader-log" />
         <div className="bootloader-progress">
           <div ref={barRef} className="bootloader-progress-bar" />
         </div>
-        <div className="bootloader-hint">Please wait - starting Zephron...</div>
+        <div className="bootloader-hint">Please wait - starting Neyraq...</div>
       </div>
 
       <div className="page">
-        <section className="hero">
+        <section className="hero" id="top">
           <video
             ref={videoRef}
             className="hero-video"
@@ -179,17 +179,95 @@ export default function LandingPage() {
           <div className="hero-bg" />
           <div className="hero-grain" />
           <div className="hero-inner">
+            <nav className="top-nav">
+              <a className="nav-brand" href="#top">
+                <span className="nav-brand-mark">
+                  <span className="nav-brand-dot" />
+                </span>
+                <span className="nav-brand-text">
+                  <span className="nav-brand-title">Neyraq</span>
+                  <span className="nav-brand-sub">Control Room</span>
+                </span>
+              </a>
+              <div className="nav-menu">
+                <a className="nav-link" href="#watch">
+                  <svg
+                    aria-hidden="true"
+                    className="nav-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                    <circle cx="12" cy="12" r="3.2" />
+                  </svg>
+                  <span>Watch</span>
+                </a>
+                <a className="nav-link" href="#analyze">
+                  <svg
+                    aria-hidden="true"
+                    className="nav-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M4 9.5A6 6 0 0 1 12 4a6 6 0 0 1 8 5.5c0 5.5-8 12-8 12s-8-6.5-8-12Z" />
+                    <path d="M9.5 11a2.5 2.5 0 0 1 5 0" />
+                  </svg>
+                  <span>Analyze</span>
+                </a>
+                <a className="nav-link" href="#control">
+                  <svg
+                    aria-hidden="true"
+                    className="nav-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M4.5 17.5 9 13l4 4 6.5-6.5" />
+                    <path d="M3 6h18" />
+                  </svg>
+                  <span>Control</span>
+                </a>
+                <a className="nav-link" href="#contact">
+                  <svg
+                    aria-hidden="true"
+                    className="nav-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" x2="12" y1="3" y2="15" />
+                  </svg>
+                  <span>Contact</span>
+                </a>
+              </div>
+            </nav>
             <div className="hero-center">
               <div className="hero-center-inner">
                 <div className="hero-center-kicker">WATCH ANALYZE CONTROL</div>
-                <div className="hero-center-title">ZEPHRON</div>
+                <div className="hero-center-title">Neyraq</div>
                 <p className="hero-center-subtitle">Your powerful agent</p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="section">
+        <section className="section" id="watch">
           <div className="section-inner">
             <div className="section-center-block">
               <div className="section-kicker">WATCH</div>
@@ -198,7 +276,7 @@ export default function LandingPage() {
                 Always watching your Windows fleet.
               </h2>
               <p className="section-text section-lead">
-                Zephron never sleeps. It watches everything you allow - from a single laptop to the entire enterprise:
+                Neyraq never sleeps. It watches everything you allow - from a single laptop to the entire enterprise:
                 CPU, RAM, disks, processes, services, network, logs, events. End-to-end instead of 20 tools:
                 clients, servers, firewalls, printers, switches, cloud services in one view.
               </p>
@@ -240,7 +318,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="section-alt">
+        <section className="section-alt" id="analyze">
           <div className="section-alt-inner">
             <div className="section-center-block">
               <div className="section-kicker">ANALYZE</div>
@@ -249,7 +327,7 @@ export default function LandingPage() {
                 Seeing is nothing without understanding.
               </h2>
               <p className="section-text section-lead">
-                Zephron turns raw signals into decisions: plain-English questions, deep diagnostics,
+                Neyraq turns raw signals into decisions: plain-English questions, deep diagnostics,
                 recommendations with reasoning.
               </p>
               <div className="section-alt-cards">
@@ -288,7 +366,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="section">
+        <section className="section" id="control">
           <div className="section-inner">
             <div className="section-center-block">
               <div className="section-kicker">CONTROL</div>
@@ -297,7 +375,7 @@ export default function LandingPage() {
                 From insights to action, with guardrails.
               </h2>
               <p className="section-text section-lead">
-                Zephron acts: open apps, set policies, roll out software, run scripts, fix configs - triggered by voice or text, always with feedback.
+                Neyraq acts: open apps, set policies, roll out software, run scripts, fix configs - triggered by voice or text, always with feedback.
               </p>
               <div className="section-alt-cards">
                 <div className="section-alt-card">
@@ -335,9 +413,9 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <footer className="footer">
+        <footer className="footer" id="contact">
           <div className="footer-inner">
-            <div>&copy; 2025 Agent Zephron - Autonomous Windows Support Platform</div>
+            <div>&copy; 2025 Agent Neyraq - Autonomous Windows Support Platform</div>
             <div style={{ display: "flex", gap: "12px" }}>
               <a href="#" className="link">
                 Imprint
@@ -351,10 +429,10 @@ export default function LandingPage() {
       </div>
 
       <style jsx global>{`
-        /* Zephron palette locked for calm-control mood:
+        /* Neyraq palette locked for calm-control mood:
            Deep blacks (#000/#080/#050) for focus, soft green accent #22c55e + mint #bbf7d0 for "online/trust",
            grain + low-sat neutrals to avoid sterility and keep a quiet control-room feeling. */
-        :global(.zephron-landing) {
+        :global(.Neyraq-landing) {
           --bg: #050505;
           --bg-soft: #101010;
           --accent: #22c55e;
@@ -366,7 +444,7 @@ export default function LandingPage() {
             "Segoe UI", sans-serif;
         }
 
-        :global(body.zephron-landing-body) {
+        :global(body.Neyraq-landing-body) {
           background: linear-gradient(180deg, #000000 0%, #080808 40%, #050505 100%);
           color: var(--text);
           min-height: 100vh;
@@ -374,19 +452,19 @@ export default function LandingPage() {
           scroll-snap-type: y mandatory;
         }
 
-        :global(.zephron-landing *) {
+        :global(.Neyraq-landing *) {
           box-sizing: border-box;
           margin: 0;
           padding: 0;
         }
 
-        :global(.zephron-landing .page) {
+        :global(.Neyraq-landing .page) {
           min-height: 100vh;
           display: flex;
           flex-direction: column;
         }
 
-        :global(.zephron-landing .hero) {
+        :global(.Neyraq-landing .hero) {
           position: relative;
           min-height: 100vh;
           height: 100vh;
@@ -396,7 +474,7 @@ export default function LandingPage() {
           scroll-snap-stop: always;
         }
 
-        :global(.zephron-landing .hero-bg) {
+        :global(.Neyraq-landing .hero-bg) {
           position: absolute;
           inset: 0;
           background-image: linear-gradient(
@@ -408,7 +486,7 @@ export default function LandingPage() {
           z-index: -2;
         }
 
-        :global(.zephron-landing .hero-grain) {
+        :global(.Neyraq-landing .hero-grain) {
           position: absolute;
           inset: -50px;
           background-image: url("https://grainy-gradients.vercel.app/noise.svg");
@@ -418,17 +496,152 @@ export default function LandingPage() {
           pointer-events: none;
         }
 
-        :global(.zephron-landing .hero-inner) {
+        :global(.Neyraq-landing .hero-inner) {
           position: relative;
           max-width: var(--max-width);
           margin: 0 auto;
           padding: 20px 20px 40px;
           display: flex;
           flex-direction: column;
+          gap: 18px;
           min-height: 100vh;
         }
 
-        :global(.zephron-landing .hero-video) {
+        :global(.Neyraq-landing .top-nav) {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+          padding: 12px 14px;
+          border-radius: 16px;
+          border: 1px solid rgba(34, 197, 94, 0.26);
+          background: linear-gradient(120deg, rgba(5, 12, 7, 0.78), rgba(5, 5, 5, 0.7));
+          box-shadow:
+            0 12px 38px rgba(0, 0, 0, 0.6),
+            0 10px 30px rgba(34, 197, 94, 0.18);
+          backdrop-filter: blur(10px);
+          position: fixed;
+          top: 18px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 20;
+          width: min(1080px, calc(100% - 24px));
+        }
+
+        :global(.Neyraq-landing .nav-brand) {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: none;
+          color: var(--text);
+          letter-spacing: 0.08em;
+        }
+
+        :global(.Neyraq-landing .nav-brand-mark) {
+          width: 34px;
+          height: 34px;
+          border-radius: 12px;
+          border: 1px solid rgba(148, 163, 184, 0.4);
+          display: grid;
+          place-items: center;
+          background: radial-gradient(circle at 30% 10%, rgba(34, 197, 94, 0.4), rgba(2, 6, 23, 0.9));
+          box-shadow: inset 0 0 18px rgba(34, 197, 94, 0.18);
+        }
+
+        :global(.Neyraq-landing .nav-brand-dot) {
+          width: 16px;
+          height: 16px;
+          border-radius: 8px;
+          background: conic-gradient(from 220deg, #22c55e, #16a34a, #22c55e);
+          box-shadow: 0 0 12px rgba(34, 197, 94, 0.75);
+        }
+
+        :global(.Neyraq-landing .nav-brand-text) {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          line-height: 1.1;
+        }
+
+        :global(.Neyraq-landing .nav-brand-title) {
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 0.18em;
+        }
+
+        :global(.Neyraq-landing .nav-brand-sub) {
+          font-size: 11px;
+          color: var(--muted);
+        }
+
+        :global(.Neyraq-landing .nav-menu) {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          min-width: 0;
+        }
+
+        :global(.Neyraq-landing .nav-link) {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 12px;
+          border-radius: 999px;
+          border: 1px solid rgba(34, 197, 94, 0.28);
+          background: rgba(0, 0, 0, 0.7);
+          color: #e5e7eb;
+          font-size: 12px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          box-shadow: 0 10px 28px rgba(34, 197, 94, 0.14);
+        }
+
+        :global(.Neyraq-landing .nav-link:hover) {
+          border-color: rgba(34, 197, 94, 0.5);
+          color: var(--accent-soft);
+          transform: translateY(-1px);
+          box-shadow: 0 14px 36px rgba(34, 197, 94, 0.2);
+        }
+
+        :global(.Neyraq-landing .nav-icon) {
+          width: 16px;
+          height: 16px;
+          color: var(--accent);
+        }
+
+        :global(.Neyraq-landing .nav-menu a[href="#watch"] .nav-icon) {
+          color: #22c55e;
+        }
+
+        :global(.Neyraq-landing .nav-menu a[href="#analyze"] .nav-icon) {
+          color: #38bdf8;
+        }
+
+        :global(.Neyraq-landing .nav-menu a[href="#control"] .nav-icon) {
+          color: #f59e0b;
+        }
+
+        :global(.Neyraq-landing .nav-menu a[href="#contact"] .nav-icon) {
+          color: #c084fc;
+        }
+
+        @media (max-width: 720px) {
+          :global(.Neyraq-landing .top-nav) {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          :global(.Neyraq-landing .nav-menu) {
+            width: 100%;
+            justify-content: flex-start;
+          }
+        }
+
+        :global(.Neyraq-landing .hero-video) {
           position: absolute;
           inset: 0;
           width: 100%;
@@ -438,8 +651,8 @@ export default function LandingPage() {
           filter: saturate(1.1) contrast(1.05);
         }
 
-        :global(.zephron-landing .hero-center) {
-          min-height: calc(100vh - 90px);
+        :global(.Neyraq-landing .hero-center) {
+          flex: 1;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -455,12 +668,12 @@ export default function LandingPage() {
           transform: translateY(0);
         }
 
-        :global(.zephron-landing .hero-center-inner) {
+        :global(.Neyraq-landing .hero-center-inner) {
           max-width: 640px;
           margin: 0 auto;
         }
 
-        :global(.zephron-landing .hero-center-kicker) {
+        :global(.Neyraq-landing .hero-center-kicker) {
           font-size: 11px;
           letter-spacing: 0.28em;
           text-transform: uppercase;
@@ -468,7 +681,7 @@ export default function LandingPage() {
           margin-bottom: 14px;
         }
 
-        :global(.zephron-landing .hero-center-title) {
+        :global(.Neyraq-landing .hero-center-title) {
           font-family: var(--font-landing-playfair), "Times New Roman", serif;
           font-size: clamp(34px, 6vw, 52px);
           letter-spacing: 0.38em;
@@ -476,12 +689,12 @@ export default function LandingPage() {
           margin-bottom: 10px;
         }
 
-        :global(.zephron-landing .hero-center-subtitle) {
+        :global(.Neyraq-landing .hero-center-subtitle) {
           font-size: 14px;
           color: var(--muted);
         }
 
-        :global(.zephron-landing .section) {
+        :global(.Neyraq-landing .section) {
           position: relative;
           background: radial-gradient(circle at center, #020b06 0, #020202 55%);
           padding: 60px 20px;
@@ -494,7 +707,7 @@ export default function LandingPage() {
           overflow: hidden;
         }
 
-        :global(.zephron-landing .section-alt) {
+        :global(.Neyraq-landing .section-alt) {
           position: relative;
           background: radial-gradient(circle at center, #020b06 0, #020202 55%);
           padding: 60px 20px 70px;
@@ -506,14 +719,14 @@ export default function LandingPage() {
           overflow: hidden;
         }
 
-        :global(.zephron-landing .section-inner) {
+        :global(.Neyraq-landing .section-inner) {
           max-width: var(--max-width);
           margin: 0 auto;
           position: relative;
           z-index: 1;
         }
 
-        :global(.zephron-landing .section-alt-inner) {
+        :global(.Neyraq-landing .section-alt-inner) {
           max-width: var(--max-width);
           margin: 0 auto;
           border-radius: 28px;
@@ -525,20 +738,20 @@ export default function LandingPage() {
         }
 
         @media (min-width: 720px) {
-          :global(.zephron-landing .section-alt-inner) {
+          :global(.Neyraq-landing .section-alt-inner) {
             display: grid;
             grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
             gap: 28px;
           }
         }
 
-        :global(.zephron-landing .section-center-block) {
+        :global(.Neyraq-landing .section-center-block) {
           text-align: center;
           max-width: 640px;
           margin: 0 auto;
         }
 
-        :global(.zephron-landing .section-kicker) {
+        :global(.Neyraq-landing .section-kicker) {
           font-size: 11px;
           letter-spacing: 0.26em;
           text-transform: uppercase;
@@ -546,7 +759,7 @@ export default function LandingPage() {
           margin-bottom: 12px;
         }
 
-        :global(.zephron-landing .section-ornament) {
+        :global(.Neyraq-landing .section-ornament) {
           width: 120px;
           height: 1px;
           margin: 0 auto 14px;
@@ -555,34 +768,34 @@ export default function LandingPage() {
           opacity: 0.8;
         }
 
-        :global(.zephron-landing .section-title) {
+        :global(.Neyraq-landing .section-title) {
           font-family: var(--font-landing-playfair), "Times New Roman", serif;
           font-size: 26px;
           margin-bottom: 12px;
         }
 
-        :global(.zephron-landing .section-title-large) {
+        :global(.Neyraq-landing .section-title-large) {
           font-size: clamp(24px, 4vw, 34px);
         }
 
-        :global(.zephron-landing .section-text) {
+        :global(.Neyraq-landing .section-text) {
           font-size: 14px;
           color: var(--muted);
           line-height: 1.6;
         }
 
-        :global(.zephron-landing .section-lead) {
+        :global(.Neyraq-landing .section-lead) {
           margin-top: 10px;
         }
 
-        :global(.zephron-landing .section-stack) {
+        :global(.Neyraq-landing .section-stack) {
           margin-top: 28px;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
           gap: 14px;
         }
 
-        :global(.zephron-landing .section-card) {
+        :global(.Neyraq-landing .section-card) {
           border-radius: 16px;
           border: 1px solid rgba(34, 197, 94, 0.35);
           background: linear-gradient(145deg, rgba(2, 8, 4, 0.95), rgba(5, 5, 5, 0.92));
@@ -590,7 +803,7 @@ export default function LandingPage() {
           box-shadow: 0 14px 46px rgba(0, 0, 0, 0.55), 0 8px 24px rgba(34, 197, 94, 0.12);
         }
 
-        :global(.zephron-landing .section-card-title) {
+        :global(.Neyraq-landing .section-card-title) {
           font-size: 13px;
           letter-spacing: 0.12em;
           text-transform: uppercase;
@@ -598,14 +811,14 @@ export default function LandingPage() {
           margin-bottom: 8px;
         }
 
-        :global(.zephron-landing .section-card-text) {
+        :global(.Neyraq-landing .section-card-text) {
           font-size: 13px;
           line-height: 1.6;
           color: var(--muted);
           margin-bottom: 10px;
         }
 
-        :global(.zephron-landing .section-card-meta) {
+        :global(.Neyraq-landing .section-card-meta) {
           font-size: 12px;
           color: #e5e7eb;
           display: inline-flex;
@@ -617,7 +830,7 @@ export default function LandingPage() {
           border: 1px solid rgba(34, 197, 94, 0.24);
         }
 
-        :global(.zephron-landing .section-pills-row) {
+        :global(.Neyraq-landing .section-pills-row) {
           margin-top: 28px;
           display: flex;
           flex-wrap: wrap;
@@ -625,7 +838,7 @@ export default function LandingPage() {
           justify-content: center;
         }
 
-        :global(.zephron-landing .section-pill) {
+        :global(.Neyraq-landing .section-pill) {
           display: inline-flex;
           align-items: center;
           gap: 8px;
@@ -642,7 +855,7 @@ export default function LandingPage() {
           overflow: hidden;
         }
 
-        :global(.zephron-landing .section-pill-dot) {
+        :global(.Neyraq-landing .section-pill-dot) {
           width: 6px;
           height: 6px;
           border-radius: 999px;
@@ -650,7 +863,7 @@ export default function LandingPage() {
           box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
         }
 
-        :global(.zephron-landing .section-alt-cards) {
+        :global(.Neyraq-landing .section-alt-cards) {
           margin-top: 30px;
           display: flex;
           flex-wrap: wrap;
@@ -658,7 +871,7 @@ export default function LandingPage() {
           justify-content: center;
         }
 
-        :global(.zephron-landing .section-alt-card) {
+        :global(.Neyraq-landing .section-alt-card) {
           min-width: 180px;
           max-width: 260px;
           border-radius: 18px;
@@ -674,7 +887,7 @@ export default function LandingPage() {
           overflow: hidden;
         }
 
-        :global(.zephron-landing .section-alt-card-label) {
+        :global(.Neyraq-landing .section-alt-card-label) {
           font-size: 11px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
@@ -682,7 +895,7 @@ export default function LandingPage() {
           color: var(--accent-soft);
         }
 
-        :global(.zephron-landing .nl-list) {
+        :global(.Neyraq-landing .nl-list) {
           margin-top: 10px;
           display: grid;
           gap: 6px;
@@ -693,7 +906,7 @@ export default function LandingPage() {
           list-style: disc;
         }
 
-        :global(.zephron-landing .badge-line) {
+        :global(.Neyraq-landing .badge-line) {
           margin-top: 10px;
           display: inline-flex;
           align-items: center;
@@ -706,13 +919,13 @@ export default function LandingPage() {
           font-size: 12px;
         }
 
-        :global(.zephron-landing .micro-bar) {
+        :global(.Neyraq-landing .micro-bar) {
           margin-top: 12px;
           display: grid;
           gap: 6px;
         }
 
-        :global(.zephron-landing .micro-bar span) {
+        :global(.Neyraq-landing .micro-bar span) {
           display: block;
           height: 4px;
           border-radius: 999px;
@@ -720,8 +933,8 @@ export default function LandingPage() {
           box-shadow: 0 4px 14px rgba(34, 197, 94, 0.25);
         }
 
-        :global(.zephron-landing .section::before),
-        :global(.zephron-landing .section-alt::before) {
+        :global(.Neyraq-landing .section::before),
+        :global(.Neyraq-landing .section-alt::before) {
           content: "";
           position: absolute;
           inset: -40px;
@@ -743,22 +956,22 @@ export default function LandingPage() {
           }
         }
 
-        :global(.zephron-landing .section-pill:nth-child(1)),
-        :global(.zephron-landing .section-alt-card:nth-child(1)) {
+        :global(.Neyraq-landing .section-pill:nth-child(1)),
+        :global(.Neyraq-landing .section-alt-card:nth-child(1)) {
           animation: floatPulse 7s ease-in-out infinite alternate;
         }
 
-        :global(.zephron-landing .section-pill:nth-child(2)),
-        :global(.zephron-landing .section-alt-card:nth-child(2)) {
+        :global(.Neyraq-landing .section-pill:nth-child(2)),
+        :global(.Neyraq-landing .section-alt-card:nth-child(2)) {
           animation: floatPulse 7s ease-in-out 0.9s infinite alternate;
         }
 
-        :global(.zephron-landing .section-pill:nth-child(3)),
-        :global(.zephron-landing .section-alt-card:nth-child(3)) {
+        :global(.Neyraq-landing .section-pill:nth-child(3)),
+        :global(.Neyraq-landing .section-alt-card:nth-child(3)) {
           animation: floatPulse 7s ease-in-out 1.8s infinite alternate;
         }
 
-        :global(.zephron-landing .footer) {
+        :global(.Neyraq-landing .footer) {
           padding: 20px;
           border-top: 1px solid rgba(255, 255, 255, 0.18);
           background: #050505;
@@ -766,7 +979,7 @@ export default function LandingPage() {
           color: var(--muted);
         }
 
-        :global(.zephron-landing .footer-inner) {
+        :global(.Neyraq-landing .footer-inner) {
           max-width: var(--max-width);
           margin: 0 auto;
           display: flex;
@@ -775,16 +988,16 @@ export default function LandingPage() {
           gap: 10px;
         }
 
-        :global(.zephron-landing a.link) {
+        :global(.Neyraq-landing a.link) {
           color: var(--muted);
           text-decoration: none;
         }
 
-        :global(.zephron-landing a.link:hover) {
+        :global(.Neyraq-landing a.link:hover) {
           color: var(--text);
         }
 
-        :global(.zephron-landing .bootloader) {
+        :global(.Neyraq-landing .bootloader) {
           position: fixed;
           inset: 0;
           background: radial-gradient(circle at center, #020b06 0, #000000 60%);
@@ -800,13 +1013,13 @@ export default function LandingPage() {
           transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        :global(.zephron-landing .bootloader-hidden) {
+        :global(.Neyraq-landing .bootloader-hidden) {
           opacity: 0;
           visibility: hidden;
           pointer-events: none;
         }
 
-        :global(.zephron-landing .bootloader-logo) {
+        :global(.Neyraq-landing .bootloader-logo) {
           display: flex;
           align-items: center;
           gap: 10px;
@@ -817,7 +1030,7 @@ export default function LandingPage() {
           color: #9ca3af;
         }
 
-        :global(.zephron-landing .bootloader-logo-mark) {
+        :global(.Neyraq-landing .bootloader-logo-mark) {
           width: 28px;
           height: 28px;
           border-radius: 999px;
@@ -827,14 +1040,14 @@ export default function LandingPage() {
           background: radial-gradient(circle at 30% 0%, #22c55e40, #020617f0);
         }
 
-        :global(.zephron-landing .bootloader-logo-dot) {
+        :global(.Neyraq-landing .bootloader-logo-dot) {
           width: 14px;
           height: 14px;
           border-radius: 999px;
           background: conic-gradient(from 210deg, #22c55e, #16a34a, #22c55e);
         }
 
-        :global(.zephron-landing .bootloader-log) {
+        :global(.Neyraq-landing .bootloader-log) {
           width: 100%;
           max-width: 520px;
           padding: 14px 16px;
@@ -849,13 +1062,13 @@ export default function LandingPage() {
           overflow: hidden;
         }
 
-        :global(.zephron-landing .bootloader-log-line) {
+        :global(.Neyraq-landing .bootloader-log-line) {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
 
-        :global(.zephron-landing .bootloader-progress) {
+        :global(.Neyraq-landing .bootloader-progress) {
           margin-top: 16px;
           width: 220px;
           height: 3px;
@@ -864,14 +1077,14 @@ export default function LandingPage() {
           overflow: hidden;
         }
 
-        :global(.zephron-landing .bootloader-progress-bar) {
+        :global(.Neyraq-landing .bootloader-progress-bar) {
           height: 100%;
           width: 0;
           background: linear-gradient(to right, #22c55e, #16a34a);
           transition: width 0.35s ease-out;
         }
 
-        :global(.zephron-landing .bootloader-hint) {
+        :global(.Neyraq-landing .bootloader-hint) {
           margin-top: 14px;
           font-size: 11px;
           color: #6b7280;
