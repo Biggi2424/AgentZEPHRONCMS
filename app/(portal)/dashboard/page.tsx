@@ -34,7 +34,7 @@ export default async function DashboardPage() {
           </div>
         </header>
 
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <Card
             label="Tokens (Periode)"
             value={`${session.tokensUsedPeriod.toLocaleString()} / ${session.tokensQuotaPeriod.toLocaleString()}`}
@@ -49,7 +49,7 @@ export default async function DashboardPage() {
             <p className="text-sm font-semibold text-zinc-50">Devices</p>
             <span className="text-xs text-zinc-400">Live aus Postgres</span>
           </div>
-          <div className="mt-3 grid gap-3 md:grid-cols-2">
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {agents.map((agent) => (
               <div key={agent.id} className="rounded-xl border border-zinc-800 bg-black/40 p-3">
                 <div className="flex items-center justify-between">
@@ -82,25 +82,23 @@ export default async function DashboardPage() {
             <p className="text-sm font-semibold text-zinc-50">Tickets</p>
             <span className="text-xs text-zinc-400">Neueste Vorgänge</span>
           </div>
-          <ul className="mt-3 space-y-2 text-sm text-zinc-200">
-            {tickets.length === 0 && <li className="text-zinc-500">Keine Tickets vorhanden.</li>}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {tickets.length === 0 && <p className="text-sm text-zinc-500">Keine Tickets vorhanden.</p>}
             {tickets.map((ticket) => (
-              <li
+              <div
                 key={ticket.id}
-                className="flex items-center justify-between rounded-xl border border-zinc-800 bg-black/40 px-3 py-2"
+                className="rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-200"
               >
-                <div>
-                  <p className="font-semibold text-zinc-50">
-                    {ticket.humanId} · {ticket.title}
-                  </p>
-                  <p className="text-xs text-zinc-400">{ticket.status}</p>
-                </div>
-                <span className="text-[11px] text-zinc-500">
+                <p className="font-semibold text-zinc-50">
+                  {ticket.humanId} · {ticket.title}
+                </p>
+                <p className="text-xs text-zinc-400">{ticket.status}</p>
+                <p className="text-[11px] text-zinc-500">
                   {new Date(ticket.createdAt).toLocaleString("de-DE")}
-                </span>
-              </li>
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     );
@@ -135,40 +133,38 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <div className="grid gap-3 md:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Card label="Agents online" value={`${online}/${agents.length}`} tone="emerald" />
         <Card label="Offene Tickets" value={openTickets.toString()} tone="amber" />
         <Card label="Deployments aktiv" value={runningDeployments.toString()} tone="cyan" />
         <Card label="Service Requests" value={catalogRequests.length.toString()} tone="blue" />
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
+      <div className="grid gap-4 lg:grid-cols-3">
+        <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 lg:col-span-2">
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-zinc-50">Tickets</p>
             <span className="text-xs text-zinc-400">Letzte Vorgänge</span>
           </div>
-          <ul className="mt-3 space-y-2 text-sm text-zinc-200">
-            {tickets.length === 0 && <li className="text-zinc-500">Keine Tickets vorhanden.</li>}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-2">
+            {tickets.length === 0 && <p className="text-sm text-zinc-500">Keine Tickets vorhanden.</p>}
             {tickets.map((ticket) => (
-              <li
+              <div
                 key={ticket.id}
-                className="flex items-center justify-between rounded-xl border border-zinc-800 bg-black/40 px-3 py-2"
+                className="rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-200"
               >
-                <div>
-                  <p className="font-semibold text-zinc-50">
-                    {ticket.humanId} · {ticket.title}
-                  </p>
-                  <p className="text-xs text-zinc-400">
-                    {ticket.status} · {ticket.priority}
-                  </p>
-                </div>
-                <span className="text-[11px] text-zinc-500">
+                <p className="font-semibold text-zinc-50">
+                  {ticket.humanId} · {ticket.title}
+                </p>
+                <p className="text-xs text-zinc-400">
+                  {ticket.status} · {ticket.priority}
+                </p>
+                <p className="text-[11px] text-zinc-500">
                   {new Date(ticket.createdAt).toLocaleString("de-DE")}
-                </span>
-              </li>
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
         </section>
 
         <section className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
@@ -176,25 +172,23 @@ export default async function DashboardPage() {
             <p className="text-sm font-semibold text-zinc-50">Deployments</p>
             <span className="text-xs text-zinc-400">Pakete & Ringe</span>
           </div>
-          <ul className="mt-3 space-y-2 text-sm text-zinc-200">
-            {deployments.length === 0 && <li className="text-zinc-500">Keine Deployments geplant.</li>}
+          <div className="mt-3 grid gap-2">
+            {deployments.length === 0 && <p className="text-sm text-zinc-500">Keine Deployments geplant.</p>}
             {deployments.map((deployment) => (
-              <li
+              <div
                 key={deployment.id}
-                className="flex items-center justify-between rounded-xl border border-zinc-800 bg-black/40 px-3 py-2"
+                className="rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-200"
               >
-                <div>
-                  <p className="font-semibold text-zinc-50">{deployment.name}</p>
-                  <p className="text-xs text-zinc-400">
-                    {deployment.rolloutStrategy} · Status {deployment.status}
-                  </p>
-                </div>
-                <span className="text-[11px] text-zinc-500">
+                <p className="font-semibold text-zinc-50">{deployment.name}</p>
+                <p className="text-xs text-zinc-400">
+                  {deployment.rolloutStrategy} · Status {deployment.status}
+                </p>
+                <p className="text-[11px] text-zinc-500">
                   {deployment.startTime ? new Date(deployment.startTime).toLocaleString("de-DE") : "Kein Start"}
-                </span>
-              </li>
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
         </section>
       </div>
 
@@ -203,10 +197,10 @@ export default async function DashboardPage() {
           <p className="text-sm font-semibold text-zinc-50">Service Requests</p>
           <span className="text-xs text-zinc-400">Catalog Items & Deployments</span>
         </div>
-        <ul className="mt-3 grid gap-2 md:grid-cols-2 lg:grid-cols-3">
-          {catalogRequests.length === 0 && <li className="text-zinc-500">Keine Requests.</li>}
+        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {catalogRequests.length === 0 && <p className="text-sm text-zinc-500">Keine Requests.</p>}
           {catalogRequests.map((req) => (
-            <li
+            <div
               key={req.id}
               className="rounded-xl border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-200"
             >
@@ -215,9 +209,9 @@ export default async function DashboardPage() {
               <p className="text-[11px] text-zinc-500">
                 {new Date(req.createdAt).toLocaleString("de-DE")}
               </p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </section>
     </div>
   );
