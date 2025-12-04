@@ -110,7 +110,7 @@ export function Shell({ children, session }: { children: ReactNode; session: Ses
           <button
             type="button"
             onClick={() => setProfileOpen((v) => !v)}
-            className="group relative flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-base font-semibold text-zinc-100 transition-all duration-150 hover:bg-zinc-900"
+            className="group relative flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-base font-semibold text-zinc-100 transition-all duration-200 hover:-translate-y-0.5 hover:bg-zinc-900"
             title="Profile"
           >
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-sm font-semibold text-emerald-950">

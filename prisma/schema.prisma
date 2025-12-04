@@ -106,6 +106,7 @@ model Tenant {
   catalogItems       CatalogItem[]
   catalogRequests    CatalogRequest[]
   apiKeys            ApiKey[]
+  paymentMethods     PaymentMethod[]
 
   @@map("tenants")
 }
@@ -141,6 +142,7 @@ model User {
   catalogItemsCreated CatalogItem[]      @relation("CatalogItemCreatedBy")
   catalogRequests     CatalogRequest[]   @relation("CatalogRequestRequester")
   apiKeysCreated      ApiKey[]           @relation("ApiKeyCreatedBy")
+  paymentMethods      PaymentMethod[]
 
   @@unique([tenantId, email], map: "users_tenant_email_uq")
   @@map("users")
@@ -416,4 +418,25 @@ model ApiKey {
 
   @@index([tenantId, isRevoked], map: "api_keys_tenant_idx")
   @@map("api_keys")
+}
+
+model PaymentMethod {
+  id          String    @id @default(uuid()) @db.Uuid
+  tenantId    String    @map("tenant_id") @db.Uuid
+  userId      String?   @map("user_id") @db.Uuid
+  brand       String
+  last4       String
+  expMonth    Int       @map("exp_month")
+  expYear     Int       @map("exp_year")
+  fingerprint String    @map("fingerprint")
+  status      String    @default("active")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  lastUsedAt  DateTime? @map("last_used_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  user   User?  @relation(fields: [userId], references: [id])
+
+  @@unique([tenantId, fingerprint], map: "payment_methods_fingerprint_uq")
+  @@index([tenantId, status], map: "payment_methods_tenant_status_idx")
+  @@map("payment_methods")
 }

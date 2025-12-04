@@ -7,7 +7,7 @@ export default async function SettingsPage() {
   const viewLabel = session.tenantType === "company" ? "Company" : "User";
 
   return (
-    <div className="space-y-6">
+    <div className="w-full space-y-8 px-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-zinc-50">Settings ({viewLabel})</h1>
@@ -15,9 +15,13 @@ export default async function SettingsPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <ProfileForm initialName={session.displayName} />
-        <PasswordForm />
+      <div className="grid grid-cols-12 gap-6">
+        <div className="col-span-12 lg:col-span-6">
+          <ProfileForm initialName={session.displayName} />
+        </div>
+        <div className="col-span-12 lg:col-span-6">
+          <PasswordForm />
+        </div>
       </div>
     </div>
   );
